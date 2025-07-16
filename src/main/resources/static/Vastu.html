@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vastu Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .compass-section, .camera-section, .vastu-recommendations {
+            margin: 30px auto;
+            text-align: center;
+        }
+        #compass-value {
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+        #camera {
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        .vastu-recommendations ul {
+            text-align: left;
+            display: inline-block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<div class="hero">
+    <h1>Vastu Recommendations</h1>
+</div>
+
+<div class="vastu-recommendations">
+    <h2>Vastu Recommendations</h2>
+    <ul>
+        <li>Entrance should be in the North-East direction for positive energy.</li>
+        <li>Kitchen is best placed in the South-East corner.</li>
+        <li>Master bedroom should be in the South-West corner.</li>
+        <li>Puja room should be in the North-East corner.</li>
+        <li>Avoid placing mirrors in front of the bed.</li>
+    </ul>
+</div>
+
+<div class="compass-section">
+    <h2>Compass</h2>
+    <div id="compass-value">Heading: --°</div>
+</div>
+<div class="camera-section">
+    <h2>Camera (Back)</h2>
+    <video id="camera" width="320" height="240" autoplay></video>
+</div>
+
+<a href="3dRoom.html">Back to 3D Room</a>
+<a href="Index.html">Back to Home</a>
+
+<script>
+    // Compass (DeviceOrientation)
+    if (window.DeviceOrientationEvent) {
+        window.addEventListener('deviceorientationabsolute' in window ? 'deviceorientationabsolute' : 'deviceorientation', function(event) {
+            let heading = event.alpha;
+            if (typeof event.webkitCompassHeading !== "undefined") {
+                heading = event.webkitCompassHeading; // iOS
+            }
+            if (heading !== null && !isNaN(heading)) {
+                document.getElementById('compass-value').textContent = 'Heading: ' + Math.round(heading) + '°';
+            }
+        }, true);
+    } else {
+        document.getElementById('compass-value').textContent = 'Compass not supported';
+    }
+
+    // Camera (getUserMedia) - Prefer back camera
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({
+            video: { facingMode: { exact: "environment" } }
+        })
+        .then(function(stream) {
+            document.getElementById('camera').srcObject = stream;
+        })
+        .catch(function(err) {
+            // Fallback to any camera if back camera is not available
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function(stream) {
+                    document.getElementById('camera').srcObject = stream;
+                })
+                .catch(function(err) {
+                    document.getElementById('camera').style.display = 'none';
+                });
+        });
+    } else {
+        document.getElementById('camera').style.display = 'none';
+    }
+</script>
+</body>
+</html>
