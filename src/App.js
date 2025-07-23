@@ -12,14 +12,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-
-// Components
 import Logo from './components/Logo';
-import ProtectedRoute from "./components/ProtectedRoute.js";
+import ProtectedRoute from "./components/ProtectedRoute";
 import CookieConsent from "./components/CookieConsent";
 import UpgradeModal from "./components/UpgradeModal";
-
-// Pages
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -28,7 +24,7 @@ import AddInvestment from "./pages/AddInvestment";
 import ViewPortfolio from "./pages/Viewportfolio";
 import InvestmentHistory from "./pages/InvestmentHistory";
 import StockAnalyzer from "./pages/StockAnalyzer";
-import InvestChatbot from "./pages/StockAnalyzer";
+import InvestChatbot from "./pages/InvestChatbot";
 import MarketNewsSummarizer from "./pages/MarketNewsSummarizer";
 import AiRecommendations from "./pages/AiRecommendations";
 import About from "./pages/About";
@@ -53,16 +49,13 @@ function AppContent() {
   const aiMenuRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
+
   const toggleDarkMode = () => setDarkMode((prev) => !prev);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (menuRef.current && !menuRef.current.contains(e.target)) {
-        setMenuOpen(false);
-      }
-      if (aiMenuRef.current && !aiMenuRef.current.contains(e.target)) {
-        setAiMenuOpen(false);
-      }
+      if (menuRef.current && !menuRef.current.contains(e.target)) setMenuOpen(false);
+      if (aiMenuRef.current && !aiMenuRef.current.contains(e.target)) setAiMenuOpen(false);
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -82,11 +75,8 @@ function AppContent() {
         }),
       });
       const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        toast.error("Checkout session could not be created.");
-      }
+      if (data.url) window.location.href = data.url;
+      else toast.error("Checkout session could not be created.");
     } catch (err) {
       console.error("Checkout error", err);
       toast.error("Could not start checkout.");
@@ -107,7 +97,6 @@ function AppContent() {
         <nav className="navbar">
           <div className="nav-left"><Logo /></div>
           <div className="nav-right">
-            {/* Main Menu */}
             <div className="dropdown" ref={menuRef}>
               <button onClick={() => setMenuOpen(!menuOpen)} className="dropdown-toggle">☰ Menu</button>
               <AnimatePresence>
@@ -129,7 +118,6 @@ function AppContent() {
                 )}
               </AnimatePresence>
             </div>
-            {/* AI Menu */}
             <div className="dropdown" ref={aiMenuRef}>
               <button onClick={() => setAiMenuOpen(!aiMenuOpen)} className="dropdown-toggle">☰ AI Tools</button>
               <AnimatePresence>
@@ -143,11 +131,9 @@ function AppContent() {
                 )}
               </AnimatePresence>
             </div>
-            {/* Dark Mode */}
             <button onClick={toggleDarkMode} className="theme-toggle" aria-label="Toggle dark mode">
               {darkMode ? <Sun size={18} /> : <Moon size={18} />}
             </button>
-            {/* Upgrade */}
             <button onClick={handleUpgrade} className="upgrade-button">Upgrade</button>
           </div>
         </nav>

@@ -1,116 +1,49 @@
-.root {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
+.homeWrapper {
+  padding: 2rem;
+  max-width: 900px;
+  margin: auto;
+  font-family: 'Segoe UI', sans-serif;
 }
-
-.centerText {
+.homeHeader {
   text-align: center;
+  margin-bottom: 2rem;
 }
-
-.title {
-  font-size: 2.5rem;
+.highlight {
+  color: #4F46E5;
+}
+.homeActions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.actionButton {
+  background: #4F46E5;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  border-radius: 6px;
   font-weight: bold;
-  color: #13d295;
+  transition: background 0.3s;
+}
+.actionButton:hover {
+  background: #3730A3;
+}
+.homeFeatures {
+  background: #F1F5F9;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+.homeFeatures ul {
+  list-style: none;
+  padding-left: 1rem;
+}
+.homeFeatures li {
   margin-bottom: 0.5rem;
+  padding-left: 1rem;
+  position: relative;
 }
-
-.subtitle {
-  color: #4c5fccc7;
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-.cardGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  max-width: 48rem;
-  width: 100%;
-}
-
-@media (min-width: 768px) {
-  .cardGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.card {
-  background: #fff;
-  box-shadow: 0 4px 24px 0 rgba(37, 99, 235, 0.08);
-  padding: 1.5rem;
-  border-radius: 1.25rem;
-  text-align: center;
-  transition: background 0.2s;
-  cursor: pointer;
-}
-
-.card:hover {
-  background: #eff6ff;
-}
-
-.icon {
-  display: block;
-  margin: 0 auto;
-}
-
-.cardTitle {
-  margin-top: 0.5rem;
-  font-size: 1.125rem;
-  font-weight: 600;
-}
-
-
-
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 2rem;
-  gap: 2rem;
-}
-
-
-/* Add this to your Home.module.css file */
-.cardLoaderContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 120px;
-}
-
-.cardLoader {
-  width: 40px;
-  height: 40px;
-  border: 3px solid rgba(59, 130, 246, 0.2);
-  border-top-color: #044080;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.cardDescription {
-  margin-top: 0.5rem;
-  color: #10cce0;
-  text-align: center;
-  font-size: 0.9rem;
-}
-
-.card {
-  transition: all 0.3s ease;
-}
-
-.cardLoading {
-  opacity: 0.7;
-  pointer-events: none;
+.homeChat {
+  margin-top: 2rem;
 }
