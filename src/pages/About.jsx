@@ -1,11 +1,10 @@
-import React from 'react';
+import React from "react";
 export default function About() {
   return (
     <div className="page-content">
-      <h2>About Us</h2>
+      <h2>About Investify App</h2>
       <p>
-        7StarInterior App connects patients with expert doctors, AI-driven insights,
-        and smart healthcare tools to ensure timely care and better health outcomes.
+         It is a service that help people manage or simplify investing..
       </p>
     </div>
   );
