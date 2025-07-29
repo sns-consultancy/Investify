@@ -1,60 +1,54 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import styles from "./InvestChatbot.module.css"; // Make sure this file exists
+ 
 const API = process.env.REACT_APP_API_URL;
-function InvestChatbot() {
+ 
+export default function InvestChatbot() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(false);
   const chatEndRef = useRef(null);
+ 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+ 
   const handleSend = async () => {
     if (!input.trim()) return;
-    const userMsg = { sender: "user", text: input };
-    setMessages((prev) => [...prev, userMsg]);
-    setLoading(true);
+ 
+    const userMessage = { sender: "user", text: input };
+    setMessages((prev) => [...prev, userMessage]);
+    setInput("");
+ 
     try {
-      const res = await axios.post(`${API}/chatbot`, { message: input }, {
-        headers: { "Content-Type": "application/json" }
-      });
-      const botMsg = { sender: "bot", text: res.data.reply };
-      setMessages((prev) => [...prev, botMsg]);
+      const res = await axios.post(`${API}/chatbot`, { message: input });
+      const botMessage = { sender: "bot", text: res.data.reply };
+      setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
-      console.error("Chatbot error:", error);
-      setMessages((prev) => [...prev, { sender: "bot", text: "Sorry, something went wrong." }]);
-    } finally {
-      setLoading(false);
-      setInput("");
+      console.error(error);
+      setMessages((prev) => [...prev, { sender: "bot", text: "Something went wrong." }]);
     }
   };
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") handleSend();
-  };
+ 
   return (
-    <div className="chat-container">
-      <h2>Invest Chatbot</h2>
-      <div className="chat-box" role="log" aria-live="polite">
+    <div className={styles.chatContainer}>
+      <div className={styles.messages}>
         {messages.map((msg, idx) => (
-          <div key={idx} className={`message ${msg.sender}`}>
-            <span>{msg.text}</span>
+          <div key={idx} className={msg.sender === "user" ? styles.userMsg : styles.botMsg}>
+            {msg.text}
           </div>
         ))}
-        {loading && <div className="message bot"><span>Typing...</span></div>}
         <div ref={chatEndRef} />
       </div>
-      <div className="chat-input">
+      <div className={styles.inputArea}>
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyPress}
-          placeholder="Ask something..."
-          aria-label="Chat input"
+          onKeyPress={(e) => e.key === "Enter" && handleSend()}
         />
-        <button onClick={handleSend} disabled={loading}>Send</button>
+        <button onClick={handleSend}>Send</button>
       </div>
     </div>
   );
 }
-export default InvestChatbot;

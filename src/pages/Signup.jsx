@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 export default function Signup() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
     alert(`User registered: ${name}`);
-    navigate("/vastu");
+    localStorage.setItem("token", "sample_token");
+    navigate("/login");
   };
+
   return (
     <div className="hero">
       <h1>User Registration</h1>
@@ -42,20 +46,10 @@ export default function Signup() {
       </form>
       <p style={{ marginTop: "1rem" }}>
         Already registered?{" "}
-        <button
-          className="link-button"
-          onClick={() => navigate("/login")}
-        >
+        <button className="link-button" onClick={() => navigate("/login")}>
           Login here
         </button>
       </p>
-      <button
-        className="secondary-button"
-        onClick={() => navigate("/vastu")}
-        style={{ marginTop: "1rem" }}
-      >
-        Next: Vastu Page
-      </button>
     </div>
   );
 }

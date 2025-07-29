@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import AIChatbot from "../components/AIChatbot";
 import "./Home.module.css";
+
 export default function Home() {
   return (
     <div className="homeWrapper">
@@ -16,10 +17,10 @@ export default function Home() {
       <section className="homeFeatures">
         <h2>What you can do:</h2>
         <ul>
-          <li>:briefcase: Track your investment portfolio in real time</li>
-          <li>:robot_face: Analyze stock trends with AI</li>
-          <li>:brain: Chat with our smart AI investment assistant</li>
-          <li>:bar_chart: Get personalized recommendations</li>
+          <li>💼 Track your investment portfolio in real time</li>
+          <li>🤖 Analyze stock trends with AI</li>
+          <li>🧠 Chat with our smart AI investment assistant</li>
+          <li>📊 Get personalized recommendations</li>
         </ul>
       </section>
       <section className="homeChat">

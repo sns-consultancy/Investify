@@ -12,14 +12,20 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import Logo from './components/Logo';
+
+import { AuthProvider } from "./context/AuthContext";
+import { useAuth } from "./context/AuthContext";
+
 import ProtectedRoute from "./components/ProtectedRoute";
+import Logo from "./components/Logo";
 import CookieConsent from "./components/CookieConsent";
 import UpgradeModal from "./components/UpgradeModal";
+
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
 import AddInvestment from "./pages/AddInvestment";
 import ViewPortfolio from "./pages/Viewportfolio";
 import InvestmentHistory from "./pages/InvestmentHistory";
@@ -49,6 +55,7 @@ function AppContent() {
   const aiMenuRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const { logout } = useAuth();
 
   const toggleDarkMode = () => setDarkMode((prev) => !prev);
 
@@ -83,10 +90,13 @@ function AppContent() {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    navigate("/login");
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/login");
+    } catch (err) {
+      toast.error("Logout failed.");
+    }
   };
 
   const hideNav = ["/", "/login", "/signup"].includes(location.pathname);
@@ -118,6 +128,7 @@ function AppContent() {
                 )}
               </AnimatePresence>
             </div>
+
             <div className="dropdown" ref={aiMenuRef}>
               <button onClick={() => setAiMenuOpen(!aiMenuOpen)} className="dropdown-toggle">☰ AI Tools</button>
               <AnimatePresence>
@@ -131,6 +142,7 @@ function AppContent() {
                 )}
               </AnimatePresence>
             </div>
+
             <button onClick={toggleDarkMode} className="theme-toggle" aria-label="Toggle dark mode">
               {darkMode ? <Sun size={18} /> : <Moon size={18} />}
             </button>
@@ -138,12 +150,14 @@ function AppContent() {
           </div>
         </nav>
       )}
+
       {hideNav && (
         <div className="banner">
           <h1>Welcome to Investify</h1>
           <p>Your AI-powered investment assistant – anytime, anywhere.</p>
         </div>
       )}
+
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
@@ -170,6 +184,7 @@ function AppContent() {
         <Route path="/find-advisors" element={<FindAdvisors />} />
         <Route path="/chat" element={<AIChatbot />} />
       </Routes>
+
       {!hideNav && (
         <footer>
           <p>© 2025 Investify. All rights reserved.</p>
@@ -178,6 +193,7 @@ function AppContent() {
           </nav>
         </footer>
       )}
+
       <CookieConsent />
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
     </div>
@@ -186,8 +202,10 @@ function AppContent() {
 
 export default function App() {
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <AuthProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </AuthProvider>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 export default function Login() {
   const navigate = useNavigate();
   const [language, setLanguage] = useState("en");
@@ -8,37 +9,33 @@ export default function Login() {
   const [registerLinkText, setRegisterLinkText] = useState("New user? Register here");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   const loginLabels = {
-    en: "Login",
-    fr: "Connexion",
-    es: "Iniciar sesión",
-    hi: "लॉग इन करें",
-    te: "లాగిన్"
+    en: "Login", fr: "Connexion", es: "Iniciar sesión", hi: "लॉग इन करें", te: "లాగిన్"
   };
   const loginTitles = {
-    en: "User Login",
-    fr: "Connexion Utilisateur",
-    es: "Inicio de sesión de usuario",
-    hi: "यूज़र लॉगिन",
-    te: "వినియోగదారు లాగిన్"
+    en: "User Login", fr: "Connexion Utilisateur", es: "Inicio de sesión de usuario",
+    hi: "यूज़र लॉगिन", te: "వినియోగదారు లాగిన్"
   };
   const registerLinks = {
-    en: "New user? Register here",
-    fr: "Nouvel utilisateur ? Inscrivez-vous ici",
-    es: "¿Nuevo usuario? Regístrate aquí",
-    hi: "नया उपयोगकर्ता? यहाँ पंजीकरण करें",
+    en: "New user? Register here", fr: "Nouvel utilisateur ? Inscrivez-vous ici",
+    es: "¿Nuevo usuario? Regístrate aquí", hi: "नया उपयोगकर्ता? यहाँ पंजीकरण करें",
     te: "కొత్త వినియోగదారు? ఇక్కడ నమోదు చేయండి"
   };
+
   useEffect(() => {
     setLoginLabel(loginLabels[language] || "Login");
     setLoginTitle(loginTitles[language] || "User Login");
     setRegisterLinkText(registerLinks[language] || "New user? Register here");
   }, [language]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     alert(`Logged in as ${username}`);
-    navigate("/3droom");
+    localStorage.setItem("token", "sample_token");
+    navigate("/home");
   };
+
   return (
     <div className="hero">
       <h1>{loginTitle}</h1>
@@ -72,28 +69,9 @@ export default function Login() {
         <button type="submit" className="primary-button">{loginLabel}</button>
       </form>
       <br />
-      <button
-        className="secondary-button"
-        onClick={() => navigate("/signup")}
-      >
+      <button className="secondary-button" onClick={() => navigate("/signup")}>
         {registerLinkText}
       </button>
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
