@@ -1,30 +1,40 @@
 .chatContainer {
-  padding: 20px;
+  padding: 1.5rem;
   max-width: 600px;
-  margin: auto;
+  margin: 2rem auto;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
+
 .messages {
   height: 300px;
   overflow-y: auto;
-  border: 1px solid #ccc;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 10px;
+  border-radius: 8px;
 }
+
 .userMsg {
   text-align: right;
-  background-color: #dcf8c6;
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  color: white;
   margin-bottom: 8px;
-  padding: 8px;
-  border-radius: 5px;
+  padding: 8px 12px;
+  border-radius: 8px;
 }
+
 .botMsg {
   text-align: left;
-  background-color: #f1f0f0;
+  background: #f3f4f6;
   margin-bottom: 8px;
-  padding: 8px;
-  border-radius: 5px;
+  padding: 8px 12px;
+  border-radius: 8px;
 }
+
 .inputArea {
   display: flex;
   gap: 10px;
-  margin-top: 10px;
+  margin-top: 1rem;
 }

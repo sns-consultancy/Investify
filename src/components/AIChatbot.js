@@ -1,9 +1,10 @@
 import React from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import InvestChatbot from "../pages/InvestChatbot";
 
 export default function Chatbot() {
-  const { currentUser, logout } = useAuth();
+  const { currentUser } = useAuth();
   const navigate = useNavigate();
 
   if (!currentUser) {
@@ -15,11 +16,5 @@ export default function Chatbot() {
     );
   }
 
-  return (
-    <div style={{ textAlign: "center", marginTop: "5rem" }}>
-      <h2>Welcome {currentUser.name}</h2>
-      <p>This is the Investify chatbot.</p>
-      <button onClick={() => logout()}>Logout</button>
-    </div>
-  );
+  return <InvestChatbot />;
 }

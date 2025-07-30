@@ -29,6 +29,7 @@ import StockAnalyzer from "./pages/StockAnalyzer";
 import InvestChatbot from "./pages/InvestChatbot";
 import MarketNewsSummarizer from "./pages/MarketNewsSummarizer";
 import AiRecommendations from "./pages/AiRecommendations";
+import Trade from "./pages/Trade";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Plans from "./pages/Plans";
@@ -124,6 +125,7 @@ function AppContent() {
                   <motion.div className="dropdown-menu" initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
                     <Link to="/stock-analyzer">Stock Analyzer</Link>
                     <Link to="/invest-chatbot">Invest Chatbot</Link>
+                    <Link to="/trade">Trade</Link>
                     <Link to="/news-summarizer">Market News</Link>
                     <Link to="/ai-recommendations">AI Insights</Link>
                   </motion.div>
@@ -153,6 +155,7 @@ function AppContent() {
         <Route path="/investment-history" element={<ProtectedRoute><InvestmentHistory /></ProtectedRoute>} />
         <Route path="/stock-analyzer" element={<ProtectedRoute><StockAnalyzer /></ProtectedRoute>} />
         <Route path="/invest-chatbot" element={<ProtectedRoute><InvestChatbot /></ProtectedRoute>} />
+        <Route path="/trade" element={<ProtectedRoute><Trade /></ProtectedRoute>} />
         <Route path="/news-summarizer" element={<ProtectedRoute><MarketNewsSummarizer /></ProtectedRoute>} />
         <Route path="/ai-recommendations" element={<ProtectedRoute><AiRecommendations /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
