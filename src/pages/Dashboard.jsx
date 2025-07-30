@@ -46,6 +46,10 @@ export default function Dashboard() {
           <h2>🤖 Ask the AI</h2>
           <p>Chat with our smart investment assistant</p>
         </Link>
+        <Link to="/trade" className="card">
+          <h2>💹 Trade</h2>
+          <p>Buy or sell stocks instantly</p>
+        </Link>
       </main>
     </div>
   );
