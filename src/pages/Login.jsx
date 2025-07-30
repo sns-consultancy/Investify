@@ -1,20 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
-  const handleLogin = () => {
-    login();
-    navigate("/chat");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await login(username, password);
+      navigate("/chat");
+    } catch (err) {
+      console.error(err);
+      setError("Login failed");
+    }
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "5rem" }}>
-      <h2>Login Page</h2>
-      <button onClick={handleLogin}>Fake Login</button>
-    </div>
+    <form onSubmit={handleSubmit} style={{ textAlign: "center", marginTop: "5rem" }}>
+      <h2>Login</h2>
+      <input
+        placeholder="Username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button type="submit">Login</button>
+      {error && <p>{error}</p>}
+    </form>
   );
 }
