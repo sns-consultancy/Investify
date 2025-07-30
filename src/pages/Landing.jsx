@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Landing.module.css";
+import LandingNav from "../components/LandingNav";
 
 export default function Landing() {
   return (
     <div className={styles.landingWrapper}>
+      <LandingNav />
       <section className={styles.hero}>
         <h1>Welcome to Investify</h1>
         <p>Your <strong>AI-powered investment assistant</strong> – anytime, anywhere.</p>
