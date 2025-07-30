@@ -3,7 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
-  const { signup } = useAuth();
+
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -18,6 +18,7 @@ export default function Signup() {
       console.error(err);
       setError("Signup failed");
     }
+
   };
 
   return (
@@ -35,6 +36,7 @@ export default function Signup() {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button type="submit">Sign Up</button>
+
       {error && <p>{error}</p>}
     </form>
   );

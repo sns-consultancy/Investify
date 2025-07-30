@@ -3,7 +3,13 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const { login } = useAuth();
+  const {
+    login,
+    loginWithFaceId,
+    loginWithVoice,
+    loginWithSSO,
+    loginWithFingerprint,
+  } = useAuth();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -18,23 +24,7 @@ export default function Login() {
       console.error(err);
       setError("Login failed");
     }
-  };
 
-  return (
-    <form onSubmit={handleSubmit} style={{ textAlign: "center", marginTop: "5rem" }}>
-      <h2>Login</h2>
-      <input
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button type="submit">Login</button>
       {error && <p>{error}</p>}
     </form>
   );
