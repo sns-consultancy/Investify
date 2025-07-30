@@ -1,55 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
+import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
+  const { login } = useAuth();
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert(`User registered: ${name}`);
-    localStorage.setItem("token", "sample_token");
-    navigate("/login");
+  const handleSignup = () => {
+    login();
+    navigate("/chat");
   };
 
   return (
-    <div className="hero">
-      <h1>User Registration</h1>
-      <form onSubmit={handleSubmit} style={{ maxWidth: "300px", width: "100%" }}>
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-          style={{ width: "100%", padding: "0.5rem", marginBottom: "1rem" }}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          style={{ width: "100%", padding: "0.5rem", marginBottom: "1rem" }}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          style={{ width: "100%", padding: "0.5rem", marginBottom: "1rem" }}
-        />
-        <button type="submit" className="primary-button">Register</button>
-      </form>
-      <p style={{ marginTop: "1rem" }}>
-        Already registered?{" "}
-        <button className="link-button" onClick={() => navigate("/login")}>
-          Login here
-        </button>
-      </p>
+    <div style={{ textAlign: "center", marginTop: "5rem" }}>
+      <h2>Signup Page</h2>
+      <button onClick={handleSignup}>Fake Sign Up</button>
     </div>
   );
 }

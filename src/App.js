@@ -12,15 +12,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-
-import { AuthProvider } from "./context/AuthContext";
-import { useAuth } from "./context/AuthContext";
-
+import { AuthProvider, useAuth } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Logo from "./components/Logo";
 import CookieConsent from "./components/CookieConsent";
 import UpgradeModal from "./components/UpgradeModal";
-
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -46,7 +42,6 @@ import CookiePolicy from "./pages/CookiePolicy";
 import AppSelector from "./pages/AppSelector";
 import FindAdvisors from "./pages/FindAdvisors";
 import AIChatbot from "./components/AIChatbot";
-
 function AppContent() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [aiMenuOpen, setAiMenuOpen] = useState(false);
@@ -56,9 +51,8 @@ function AppContent() {
   const navigate = useNavigate();
   const location = useLocation();
   const { logout } = useAuth();
-
+  const hideNav = ["/", "/login", "/signup"].includes(location.pathname);
   const toggleDarkMode = () => setDarkMode((prev) => !prev);
-
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (menuRef.current && !menuRef.current.contains(e.target)) setMenuOpen(false);
@@ -67,7 +61,6 @@ function AppContent() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
   const handleUpgrade = async () => {
     const userToken = localStorage.getItem("token");
     try {
@@ -89,7 +82,6 @@ function AppContent() {
       toast.error("Could not start checkout.");
     }
   };
-
   const handleLogout = async () => {
     try {
       await logout();
@@ -98,9 +90,6 @@ function AppContent() {
       toast.error("Logout failed.");
     }
   };
-
-  const hideNav = ["/", "/login", "/signup"].includes(location.pathname);
-
   return (
     <div className={`app-container ${darkMode ? "dark" : ""}`}>
       {!hideNav && (
@@ -128,7 +117,6 @@ function AppContent() {
                 )}
               </AnimatePresence>
             </div>
-
             <div className="dropdown" ref={aiMenuRef}>
               <button onClick={() => setAiMenuOpen(!aiMenuOpen)} className="dropdown-toggle">☰ AI Tools</button>
               <AnimatePresence>
@@ -142,7 +130,6 @@ function AppContent() {
                 )}
               </AnimatePresence>
             </div>
-
             <button onClick={toggleDarkMode} className="theme-toggle" aria-label="Toggle dark mode">
               {darkMode ? <Sun size={18} /> : <Moon size={18} />}
             </button>
@@ -150,14 +137,12 @@ function AppContent() {
           </div>
         </nav>
       )}
-
       {hideNav && (
         <div className="banner">
           <h1>Welcome to Investify</h1>
           <p>Your AI-powered investment assistant – anytime, anywhere.</p>
         </div>
       )}
-
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
@@ -184,7 +169,6 @@ function AppContent() {
         <Route path="/find-advisors" element={<FindAdvisors />} />
         <Route path="/chat" element={<AIChatbot />} />
       </Routes>
-
       {!hideNav && (
         <footer>
           <p>© 2025 Investify. All rights reserved.</p>
@@ -193,13 +177,11 @@ function AppContent() {
           </nav>
         </footer>
       )}
-
       <CookieConsent />
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
     </div>
   );
 }
-
 export default function App() {
   return (
     <AuthProvider>

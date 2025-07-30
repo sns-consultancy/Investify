@@ -1,49 +1,49 @@
 .homeWrapper {
   padding: 2rem;
-  max-width: 900px;
-  margin: auto;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
 }
 .homeHeader {
   text-align: center;
-  margin-bottom: 2rem;
+  padding: 2rem 1rem;
+  background: linear-gradient(to right, #6A11CB, #2575FC);
+  color: white;
+  border-radius: 12px;
 }
 .highlight {
-  color: #4F46E5;
+  color: #FFD700;
+  font-weight: bold;
 }
 .homeActions {
   display: flex;
   justify-content: center;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin: 2rem 0;
 }
 .actionButton {
-  background: #4F46E5;
+  background-color: #2575FC;
   color: white;
   padding: 0.75rem 1.5rem;
+  border-radius: 8px;
   text-decoration: none;
-  border-radius: 6px;
   font-weight: bold;
-  transition: background 0.3s;
+  transition: background-color 0.3s;
 }
 .actionButton:hover {
-  background: #3730A3;
+  background-color: #1A5ED0;
 }
 .homeFeatures {
-  background: #F1F5F9;
-  padding: 1rem;
+  text-align: center;
+  padding: 2rem 1rem;
+  background-color: #F9F9F9;
   border-radius: 8px;
-  margin-bottom: 2rem;
 }
 .homeFeatures ul {
   list-style: none;
-  padding-left: 1rem;
-}
-.homeFeatures li {
-  margin-bottom: 0.5rem;
-  padding-left: 1rem;
-  position: relative;
+  padding: 0;
+  font-size: 1.1rem;
+  line-height: 2rem;
 }
 .homeChat {
   margin-top: 2rem;
+  text-align: center;
 }

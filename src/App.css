@@ -1,399 +1,68 @@
-body {
+body, html {
   margin: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: #E9ECEF;
-  color: #333;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
 }
-.hero {
+.app-container.dark {
+  background-color: #121212;
+  color: #F5F5F5;
+}
+.navbar {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  text-align: center;
-  padding: 2rem 1rem;
-  background: white;
-  border-radius: 12px;
-  max-width: 600px;
-  margin: 2rem auto;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-  position: relative;
-  animation: fadeIn 0.6s ease;
+  padding: 1rem 2rem;
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(20px);}
-  to {opacity: 1; transform: translateY(0);}
+.navbar.dark {
+  background-color: #1F1F1F;
 }
-.logo {
-  max-width: 100%;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  transition: transform 0.3s ease;
-}
-.logo:hover {
-  transform: scale(1.02);
-}
-.language-select {
-  margin: 1rem 0;
+.nav-left, .nav-right {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
 }
-.language-select select {
-  padding: 0.5rem 0.75rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-.title {
-  font-size: 1.6rem;
-  font-weight: 700;
-  margin: 1rem 0 0.5rem;
-  align-items: center;
-}
-.tagline {
-  font-size: 1.1rem;
-  color: #555;
-  margin-bottom: 1.5rem;
-}
-button#loginBtn {
-  background: #10A37F;
-  color: white;
-  padding: 0.65rem 1.4rem;
-  font-size: 1rem;
+.dropdown-toggle {
+  background: transparent;
   border: none;
-  border-radius: 5px;
+  font-size: 1.2rem;
+  margin-right: 1rem;
   cursor: pointer;
-  transition: background 0.2s ease;
-  margin-bottom: 1rem;
 }
-button#loginBtn:hover {
-  background: #0D7C60;
-}
-body {
-  margin: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: #E9ECEF;
-  color: #333;
-}
-.hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 2rem 1rem;
-  background: white;
-  border-radius: 12px;
-  max-width: 600px;
-  margin: 2rem auto;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-  position: relative;
-  animation: fadeIn 0.6s ease;
-}
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(20px);}
-  to {opacity: 1; transform: translateY(0);}
-}
-.logo {
-  max-width: 100%;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  transition: transform 0.3s ease;
-}
-.logo:hover {
-  transform: scale(1.02);
-}
-.language-select {
-  margin: 1rem 0;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.language-select select {
-  padding: 0.5rem 0.75rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-.title {
-  font-size: 1.6rem;
-  font-weight: 700;
-  margin: 1rem 0 0.5rem;
-}
-.tagline {
-  font-size: 1.1rem;
-  color: #555;
-  margin-bottom: 1.5rem;
-}
-button#loginBtn {
-  background: #10A37F;
-  color: white;
-  padding: 0.65rem 1.4rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-  margin-bottom: 1rem;
-}
-button#loginBtn:hover {
-  background: #0D7C60;
-}
-footer {
-  text-align: center;
-  margin-top: 1rem;
-  font-size: 0.95rem;
-}
-.footer-links {
-  margin-bottom: 0.5rem;
-}
-.footer-links a {
-  margin: 0 0.5rem;
-  text-decoration: none;
-  color: #10A37F;
-}
-.footer-links a:hover {
-  text-decoration: underline;
-}
-.menu-container {
+.dropdown-menu {
   position: absolute;
-  top: 1rem;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  top: 3rem;
   right: 1rem;
-}
-.menu-button {
-  background: #10A37F;
-  color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.menu-dropdown {
-  display: none;
-  position: absolute;
-  right: 0;
-  margin-top: 0.5rem;
-  background: white;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  border-radius: 4px;
-  min-width: 120px;
-}
-.menu-container:hover .menu-dropdown {
-  display: block;
-}
-.menu-dropdown a {
-  display: block;
-  padding: 0.5rem 1rem;
-  text-decoration: none;
-  color: #333;
-}
-.menu-dropdown a:hover {
-  background: #F0F0F0;
-}
-@media (max-width: 640px) {
-  .hero {
-    margin: 1rem;
-    padding: 1.5rem;
-  }
-  .title {
-    font-size: 1.3rem;
-  }
-  .tagline {
-    font-size: 1rem;
-  }
-
-}
-footer {
-  text-align: center;
-  margin-top: 1rem;
-  font-size: 0.95rem;
-}
-.footer-links {
-  margin-bottom: 0.5rem;
-}
-.footer-links a {
-  margin: 0 0.5rem;
-  text-decoration: none;
-  color: #10A37F;
-}
-.footer-links a:hover {
-  text-decoration: underline;
-}
-.menu-container {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-}
-.menu-button {
-  background: #10A37F;
-  color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.menu-dropdown {
-  display: none;
-  position: absolute;
-  right: 0;
-  margin-top: 0.5rem;
-  background: white;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  border-radius: 4px;
-  min-width: 120px;
-}
-.menu-container:hover .menu-dropdown {
-  display: block;
-}
-.menu-dropdown a {
-  display: block;
-  padding: 0.5rem 1rem;
-  text-decoration: none;
-  color: #333;
-}
-.menu-dropdown a:hover {
-  background: #F0F0F0;
-}
-@media (max-width: 640px) {
-  .hero {
-    margin: 1rem;
-    padding: 1.5rem;
-  }
-  .title {
-    font-size: 1.3rem;
-  }
-  .tagline {
-    font-size: 1rem;
-  }
-
-}
-body {
-  margin: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: #E9ECEF;
-  color: #333;
-}
-.hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 2rem 1rem;
-  background: white;
-  border-radius: 12px;
-  max-width: 600px;
-  margin: 2rem auto;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-  position: relative;
-  animation: fadeIn 0.6s ease;
-}
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(20px);}
-  to {opacity: 1; transform: translateY(0);}
-}
-.logo {
-  max-width: 100%;
   border-radius: 8px;
-  margin-bottom: 1rem;
-  transition: transform 0.3s ease;
+  z-index: 100;
 }
-.logo:hover {
-  transform: scale(1.02);
-}
-.language-select {
-  margin: 1rem 0;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.language-select select {
-  padding: 0.5rem 0.75rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-.title {
-  font-size: 1.6rem;
-  font-weight: 700;
-  margin: 1rem 0 0.5rem;
-}
-.tagline {
-  font-size: 1.1rem;
-  color: #555;
-  margin-bottom: 1.5rem;
-}
-button#loginBtn {
-  background: #10A37F;
-  color: white;
-  padding: 0.65rem 1.4rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-  margin-bottom: 1rem;
-}
-button#loginBtn:hover {
-  background: #0D7C60;
-}
-footer {
-  text-align: center;
-  margin-top: 1rem;
-  font-size: 0.95rem;
-}
-.footer-links {
+.dropdown-menu a, .dropdown-menu button {
+  display: block;
   margin-bottom: 0.5rem;
-}
-.footer-links a {
-  margin: 0 0.5rem;
-  text-decoration: none;
-  color: #10A37F;
-}
-.footer-links a:hover {
-  text-decoration: underline;
-}
-.menu-container {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-}
-.menu-button {
-  background: #10A37F;
-  color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.menu-dropdown {
-  display: none;
-  position: absolute;
-  right: 0;
-  margin-top: 0.5rem;
-  background: white;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  border-radius: 4px;
-  min-width: 120px;
-}
-.menu-container:hover .menu-dropdown {
-  display: block;
-}
-.menu-dropdown a {
-  display: block;
-  padding: 0.5rem 1rem;
-  text-decoration: none;
   color: #333;
+  text-decoration: none;
 }
-.menu-dropdown a:hover {
-  background: #F0F0F0;
+.theme-toggle, .upgrade-button {
+  margin-left: 1rem;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  border-radius: 5px;
 }
-@media (max-width: 640px) {
-  .hero {
-    margin: 1rem;
-    padding: 1.5rem;
-  }
-  .title {
-    font-size: 1.3rem;
-  }
-  .tagline {
-    font-size: 1rem;
-  }
+.theme-toggle {
+  border: none;
+  background: #eee;
+}
+.upgrade-button {
+  background: #4F46E5;
+  color: white;
+  border: none;
+}
+.banner {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(to right, #667EEA, #764BA2);
+  color: white;
 }
