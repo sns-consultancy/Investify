@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Registration</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="hero">
+    <h1>User Registration</h1>
+    <form id="userForm">
+        <input type="text" id="name" placeholder="Name" required><br><br>
+        <input type="email" id="email" placeholder="Email" required><br><br>
+        <input type="password" id="password" placeholder="Password" required><br><br>
+        <button type="submit">Register</button>
+    </form>
+
+    <p>Already registered? <a href="login.html">Login here</a></p>
+    <br>
+    <button onclick="goToVastu()">Next: Vastu Page</button>
+</div>
+<script>
+    document.getElementById('userForm').onsubmit = function(e) {
+        e.preventDefault();
+        // Example for login.html or user.html
+function goTo3DRoom() {
+    window.location.href = "room3d.html";
+}
+        // You can add AJAX to register user here if needed
+        alert('User registered (simulated)');
+        window.location.href = "vastu.html";
+    };
+    function goToVastu() {
+        window.location.href = "vastu.html";
+    }
+</script>
+</body>
+</html>

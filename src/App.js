@@ -3,33 +3,32 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link,
   useNavigate,
   useLocation,
+  Link,
 } from "react-router-dom";
 import { Moon, Sun } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Logo from "./components/Logo";
+import LogoImg from "./assets/Logo.png";
 import CookieConsent from "./components/CookieConsent";
 import UpgradeModal from "./components/UpgradeModal";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
-import Dashboard from "./pages/Dashboard";
 import AddInvestment from "./pages/AddInvestment";
-import ViewPortfolio from "./pages/Viewportfolio";
+import ViewPortfolio from "./pages/ViewPortfolio";
 import InvestmentHistory from "./pages/InvestmentHistory";
 import StockAnalyzer from "./pages/StockAnalyzer";
 import InvestChatbot from "./pages/InvestChatbot";
 import MarketNewsSummarizer from "./pages/MarketNewsSummarizer";
 import AiRecommendations from "./pages/AiRecommendations";
-import Trade from "./pages/Trade";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Plans from "./pages/Plans";
@@ -43,17 +42,23 @@ import CookiePolicy from "./pages/CookiePolicy";
 import AppSelector from "./pages/AppSelector";
 import FindAdvisors from "./pages/FindAdvisors";
 import AIChatbot from "./components/AIChatbot";
-function AppContent() {
+import Navbar from "./components/Navbar";
+
+
+function InnerApp() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [aiMenuOpen, setAiMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+  const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
   const menuRef = useRef(null);
   const aiMenuRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const { logout } = useAuth();
-  const hideNav = ["/", "/login", "/signup"].includes(location.pathname);
+  const { logout } = useAuth() || {};
+
   const toggleDarkMode = () => setDarkMode((prev) => !prev);
+  const hideNav = ["/", "/login", "/signup"].includes(location.pathname);
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (menuRef.current && !menuRef.current.contains(e.target)) setMenuOpen(false);
@@ -62,40 +67,21 @@ function AppContent() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-  const handleUpgrade = async () => {
-    const userToken = localStorage.getItem("token");
-    try {
-      const res = await fetch("/api/stripe/create-checkout-session", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${userToken}`,
-        },
-        body: JSON.stringify({
-          priceId: process.env.REACT_APP_STRIPE_PRICE_ID,
-        }),
-      });
-      const data = await res.json();
-      if (data.url) window.location.href = data.url;
-      else toast.error("Checkout session could not be created.");
-    } catch (err) {
-      console.error("Checkout error", err);
-      toast.error("Could not start checkout.");
-    }
-  };
+
   const handleLogout = async () => {
     try {
-      await logout();
+      if (logout) await logout();
       navigate("/login");
-    } catch (err) {
-      toast.error("Logout failed.");
+    } catch {
+      // handle error
     }
   };
+
   return (
     <div className={`app-container ${darkMode ? "dark" : ""}`}>
       {!hideNav && (
         <nav className="navbar">
-          <div className="nav-left"><Logo /></div>
+          <div className="nav-left"> <img src={LogoImg} alt="Investify Logo" height={32} /></div>
           <div className="nav-right">
             <div className="dropdown" ref={menuRef}>
               <button onClick={() => setMenuOpen(!menuOpen)} className="dropdown-toggle">☰ Menu</button>
@@ -118,6 +104,7 @@ function AppContent() {
                 )}
               </AnimatePresence>
             </div>
+
             <div className="dropdown" ref={aiMenuRef}>
               <button onClick={() => setAiMenuOpen(!aiMenuOpen)} className="dropdown-toggle">☰ AI Tools</button>
               <AnimatePresence>
@@ -125,29 +112,33 @@ function AppContent() {
                   <motion.div className="dropdown-menu" initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
                     <Link to="/stock-analyzer">Stock Analyzer</Link>
                     <Link to="/invest-chatbot">Invest Chatbot</Link>
-                    <Link to="/trade">Trade</Link>
                     <Link to="/news-summarizer">Market News</Link>
                     <Link to="/ai-recommendations">AI Insights</Link>
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
+
             <button onClick={toggleDarkMode} className="theme-toggle" aria-label="Toggle dark mode">
               {darkMode ? <Sun size={18} /> : <Moon size={18} />}
             </button>
-            <button onClick={handleUpgrade} className="upgrade-button">Upgrade</button>
+            <button onClick={() => setUpgradeModalOpen(true)} className="upgrade-button">Upgrade</button>
           </div>
         </nav>
       )}
+
       {hideNav && (
         <div className="banner">
           <h1>Welcome to Investify</h1>
           <p>Your AI-powered investment assistant – anytime, anywhere.</p>
         </div>
       )}
+
+      <UpgradeModal isOpen={upgradeModalOpen} onClose={() => setUpgradeModalOpen(false)} />
+
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login />} /> 
         <Route path="/signup" element={<Signup />} />
         <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/add-investment" element={<ProtectedRoute><AddInvestment /></ProtectedRoute>} />
@@ -155,7 +146,6 @@ function AppContent() {
         <Route path="/investment-history" element={<ProtectedRoute><InvestmentHistory /></ProtectedRoute>} />
         <Route path="/stock-analyzer" element={<ProtectedRoute><StockAnalyzer /></ProtectedRoute>} />
         <Route path="/invest-chatbot" element={<ProtectedRoute><InvestChatbot /></ProtectedRoute>} />
-        <Route path="/trade" element={<ProtectedRoute><Trade /></ProtectedRoute>} />
         <Route path="/news-summarizer" element={<ProtectedRoute><MarketNewsSummarizer /></ProtectedRoute>} />
         <Route path="/ai-recommendations" element={<ProtectedRoute><AiRecommendations /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
@@ -170,8 +160,9 @@ function AppContent() {
         <Route path="/cookies" element={<CookiePolicy />} />
         <Route path="/app-selector" element={<AppSelector />} />
         <Route path="/find-advisors" element={<FindAdvisors />} />
-        <Route path="/chat" element={<AIChatbot />} />
+        <Route path="/chatbot" element={<AIChatbot />} />
       </Routes>
+
       {!hideNav && (
         <footer>
           <p>© 2025 Investify. All rights reserved.</p>
@@ -180,16 +171,18 @@ function AppContent() {
           </nav>
         </footer>
       )}
+
       <CookieConsent />
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
     </div>
   );
 }
+
 export default function App() {
   return (
     <AuthProvider>
       <Router>
-        <AppContent />
+        <InnerApp />
       </Router>
     </AuthProvider>
   );

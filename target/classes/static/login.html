@@ -1,0 +1,66 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="hero">
+    <h1 id="loginTitle">User Login</h1>
+    <div>
+        <label for="langSelect">Language:</label>
+        <select id="langSelect" onchange="translateLogin()">
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+            <option value="es">Español</option>
+            <option value="hi">हिन्दी</option>
+            <option value="te">తెలుగు</option>
+        </select>
+    </div>
+    <form id="loginForm">
+        <input type="text" id="username" placeholder="Username or Email" required><br><br>
+        <input type="password" id="password" placeholder="Password" required><br><br>
+        <button type="submit" id="loginBtn">Login</button>
+    </form>
+    <br>
+    <a href="User.html" id="registerLink">New user? Register here</a>
+</div>
+<script>
+    const loginLabels = {
+        en: "Login",
+        fr: "Connexion",
+        es: "Iniciar sesión",
+        hi: "लॉग इन करें",
+        te: "లాగిన్"
+    };
+    const loginTitles = {
+        en: "User Login",
+        fr: "Connexion Utilisateur",
+        es: "Inicio de sesión de usuario",
+        hi: "यूज़र लॉगिन",
+        te: "వినియోగదారు లాగిన్"
+    };
+    const registerLinks = {
+        en: "New user? Register here",
+        fr: "Nouvel utilisateur ? Inscrivez-vous ici",
+        es: "¿Nuevo usuario? Regístrate aquí",
+        hi: "नया उपयोगकर्ता? यहाँ पंजीकरण करें",
+        te: "కొత్త వినియోగదారు? ఇక్కడ నమోదు చేయండి"
+    };
+
+    function translateLogin() {
+        const lang = document.getElementById('langSelect').value;
+        document.getElementById('loginBtn').textContent = loginLabels[lang] || "Login";
+        document.getElementById('loginTitle').textContent = loginTitles[lang] || "User Login";
+        document.getElementById('registerLink').textContent = registerLinks[lang] || "New user? Register here";
+    }
+    document.getElementById('loginForm').onsubmit = function(e) {
+        e.preventDefault();
+        alert('Login successful (simulated)');
+        window.location.href = "3dRoom.html";
+    };
+</script>
+</body>
+</html>

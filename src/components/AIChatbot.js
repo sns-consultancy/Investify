@@ -1,7 +1,7 @@
 import React from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import InvestChatbot from "../pages/InvestChatbot";
+import InvestChatbot from "../pages/InvestChatbot"; // fix: path to InvestChatbot (should be in pages, not import from pages in components!)
 
 export default function Chatbot() {
   const { currentUser } = useAuth();

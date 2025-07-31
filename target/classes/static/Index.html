@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>7 Star Interior App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="hero">
+    <img src="logo.png" alt="7 Star Interior Logo" class="logo" />
+    <div>
+        <label for="langSelect">Language:</label>
+        <select id="langSelect" onchange="translateHome()">
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+            <option value="es">Español</option>
+            <option value="hi">हिन्दी</option>
+            <option value="te">తెలుగు</option>
+        </select>
+    </div>
+    <div class="title" id="main-title">Welcome to 7 Star Interior App</div>
+    <div class="tagline" id="main-tagline">Design with Voice. Visualize with AI. Approve with Ease.</div>
+    <button id="loginBtn" onclick="window.location.href='login.html'">Login</button>
+</div>
+
+<a href="https://chat.openai.com/" target="_blank" class="chatgpt-fab" title="ChatGPT 4o-mini">
+    <svg width="64" height="64" viewBox="0 0 64 64">
+        <circle cx="32" cy="32" r="32" fill="#10A37F"/>
+        <text x="32" y="38" text-anchor="middle" font-size="18" fill="white" font-family="Arial" font-weight="bold">4o-mini</text>
+    </svg>
+</a>
+
+<script>
+    const loginLabels = {
+        en: "Login",
+        fr: "Connexion",
+        es: "Iniciar sesión",
+        hi: "लॉग इन करें",
+        te: "లాగిన్"
+    };
+
+    function translateHome() {
+        const lang = document.getElementById('langSelect').value;
+        fetch(`/api/translate?text=Welcome%20to%207%20Star%20Interior%20App&lang=${lang}`)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('main-title').textContent = data.translation;
+            });
+        fetch(`/api/translate?text=Design%20with%20Voice.%20Visualize%20with%20AI.%20Approve%20with%20Ease.&lang=${lang}`)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('main-tagline').textContent = data.translation;
+            });
+        document.getElementById('loginBtn').textContent = loginLabels[lang] || "Login";
+    }
+</script>
+</body>
+</html>

@@ -47,23 +47,3 @@
 .auth-link:hover {
   text-decoration: underline;
 }
-.google-btn {
-  margin-top: 0.8rem;
-  background: #fff;
-  color: #444;
-  border: 1px solid #ddd;
-  border-radius: 7px;
-  padding: 0.65rem 0;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.18s;
-  gap: 0.4rem;
-}
-.google-btn:hover {
-  background: #f1f1f1;
-  border-color: #bdbdbd;
-}
